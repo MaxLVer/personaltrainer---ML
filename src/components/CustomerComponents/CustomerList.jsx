@@ -40,7 +40,7 @@ export default function CustomerList() {
             const data = await response.json();
             setCustomers(data._embedded.customers);
         } catch (e) {
-            console.error('Failed to fetch customers. Check the log:', e);
+            console.error('Failed to fetch customers. Check the log: ', e);
         }
     };
 

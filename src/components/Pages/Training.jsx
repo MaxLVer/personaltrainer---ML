@@ -1,3 +1,5 @@
+import TrainingList from "../TrainingComponents/TrainingList";
+
 export default function Training() {
-    return(<h1>Add the TrainingList here</h1>) 
+    return(<TrainingList />) 
 }

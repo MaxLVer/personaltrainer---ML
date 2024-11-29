@@ -1,5 +1,5 @@
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, } from "@mui/material";
 import { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 
 export const AddCustomer = ({ onAdd }) => {
     const [open, setOpen] = useState(false);
@@ -23,6 +23,7 @@ export const AddCustomer = ({ onAdd }) => {
 
     const handleClose = () => {
         setOpen(false);
+        //Resets everything within the dialog
         setCustomer({
             firstname: '',
             lastname: '',
@@ -56,17 +57,18 @@ export const AddCustomer = ({ onAdd }) => {
 
     return (
         <>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>
+        <Box sx={{ padding: '20px' }}> {/* Boxed to add padding */}
+            <Button variant="outlined" color="primary" onClick={handleOpen} >
                 Add Customer
             </Button>
+        </Box> 
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add Customer</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To add a customer, please input the required details.
+                        To add a new customer, please input the required details.
                     </DialogContentText>
                     <TextField
-                        autoFocus
                         required
                         id="firstname"
                         name="firstname"
