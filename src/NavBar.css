@@ -1,0 +1,19 @@
+.navbar {
+    display: flex;
+    justify-content: space-around; /* Space out links evenly */
+    padding: 10px;
+    background-color: #f8f9fa; /* Light gray background */
+    border-bottom: 1px solid #ddd; /* Optional bottom border for separation */
+  }
+  
+  .nav-link {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Blue color for links */
+    font-weight: bold;
+    padding: 5px 10px; /* Add some padding */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+  }
+  
+  .nav-link:hover {
+    color: #0056b3;
+  }
