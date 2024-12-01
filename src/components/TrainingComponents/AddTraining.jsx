@@ -6,7 +6,7 @@ export const AddTraining = ({ onAdd }) => {
     const [open, setOpen] = useState(false);
     const [customers, setCustomers] = useState([]);
     const [training, setTraining] = useState({
-        //Memo: "The format must be ISO-8601 (e.g., "2024-11-27T09:12:00.000+000"
+        //Memo: "The format must be ISO-8601 (e.g., "2024-11-27T09:12:00.000+000")
         date: dayjs().format("YYYY-MM-DDTHH:mm"),
         activity: '',
         duration: '',

@@ -9,13 +9,13 @@ export const DeleteTraining = ({ trainingId, onConfirm }) => {
         setDeleteDialog(true);
     };
 
-    const handleDeleteClose = () => {
+    const handleClose = () => {
         setDeleteDialog(false);
     };
 
     const deleteResource = async (id) => {
         const url = `https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/trainings/${id}`; 
-        //To fetch the /trainings rather than /gettrainings
+        //To fetch the /trainings{$id} rather than /gettrainings
         const options = {
             method: 'DELETE',
         };
@@ -33,7 +33,7 @@ export const DeleteTraining = ({ trainingId, onConfirm }) => {
         try {
             await deleteResource(trainingId);
             onConfirm();
-            handleDeleteClose();
+            handleClose();
         } catch (e) {
             console.error(e);
         }
@@ -44,7 +44,7 @@ export const DeleteTraining = ({ trainingId, onConfirm }) => {
             <Button onClick={handleOpen} variant="outlined" color="error" endIcon={<DeleteIcon />}>
                 Delete
             </Button>
-            <Dialog open={deleteDialog} onClose={handleDeleteClose}>
+            <Dialog open={deleteDialog} onClose={handleClose}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -52,7 +52,7 @@ export const DeleteTraining = ({ trainingId, onConfirm }) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDeleteClose} color="primary">
+                    <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={handleDelete} color="error">

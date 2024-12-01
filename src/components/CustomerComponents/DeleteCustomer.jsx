@@ -3,14 +3,15 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export const DeleteCustomer = ({ customerUrl, onConfirm }) => {
-    const [deleteDialog, setDeleteDialog] = useState(false);
+    const [open, setOpen] = useState(false);
+    //Renamed setOpen()
 
     const handleOpen = () => {
-        setDeleteDialog(true);
+        setOpen(true);
     };
 
-    const handleDeleteClose = () => {
-        setDeleteDialog(false);
+    const handleClose = () => {
+        setOpen(false);
     };
 
     const deleteResource = async (url) => {
@@ -29,9 +30,9 @@ export const DeleteCustomer = ({ customerUrl, onConfirm }) => {
 
     const handleDelete = async () => {
         try {
-            await deleteResource(customerUrl); 
-            onConfirm(); 
-            handleDeleteClose(); 
+            await deleteResource(customerUrl);
+            onConfirm();
+            handleClose();
         } catch (e) {
             console.error(e);
         }
@@ -41,8 +42,8 @@ export const DeleteCustomer = ({ customerUrl, onConfirm }) => {
         <>
             <Button onClick={handleOpen} variant="outlined" color="error" endIcon={<DeleteIcon />}>
                 Delete
-            </Button>
-            <Dialog open={deleteDialog} onClose={handleDeleteClose}>
+            </Button> {/*Renders button for modular use */}
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -50,7 +51,7 @@ export const DeleteCustomer = ({ customerUrl, onConfirm }) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDeleteClose} color="primary">
+                    <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={handleDelete} color="error">

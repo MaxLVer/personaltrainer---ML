@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { AddCustomer } from './AddCustomer';
 import { DeleteCustomer } from './DeleteCustomer';
+import { EditCustomer } from "./UpdateCustomer";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
@@ -27,6 +28,18 @@ export default function CustomerList() {
                     onConfirm={fetchCustomers}
                 />
             )
+        },
+        {
+            field: '_links.self.href2',
+            headerName: '',
+            sortable: false,
+            filter: false,
+            cellRenderer: params => (
+                <EditCustomer
+                    updateCustomer={updateCustomer}
+                    currentCustomer={params.data}
+                />
+            )
         }
     ]);
 
@@ -42,6 +55,25 @@ export default function CustomerList() {
             setCustomers(data._embedded.customers);
         } catch (e) {
             console.error('Failed to fetch customers. Check the log: ', e);
+        }
+    };
+
+    const updateCustomer = async (url, updatedCustomer) => {
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedCustomer),
+            });
+            if (response.ok) {
+                fetchCustomers();
+            } else {
+                console.error('Failed to update customer');
+            }
+        } catch (e) {
+            console.error('Failed to update customer. Check the log: ', e);
         }
     };
 

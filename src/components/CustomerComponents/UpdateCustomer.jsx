@@ -1,21 +1,11 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, } from "@mui/material";
 import { useState } from "react";
 
-export const AddCustomer = ({ onAdd }) => {
+export const EditCustomer = ({ updateCustomer, currentCustomer }) => {
     const [open, setOpen] = useState(false);
-    const [customer, setCustomer] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: '',
-        streetaddress: '',
-        postcode: '',
-        city: '',
-    });
+    const [customer, setCustomer] = useState(currentCustomer);
 
-    const handleChange = event => {
-        setCustomer({ ...customer, [event.target.name]: event.target.value });
-    };
+    const url = currentCustomer._links.self.href;
 
     const handleOpen = () => {
         setOpen(true);
@@ -23,50 +13,29 @@ export const AddCustomer = ({ onAdd }) => {
 
     const handleClose = () => {
         setOpen(false);
-        //Resets everything within the dialog
-        setCustomer({
-            firstname: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            streetaddress: '',
-            postcode: '',
-            city: '',
-        });
     };
 
-    const handleAddCustomer = async () => {
-        try {
-            const response = await fetch('https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/customers', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(customer),
-            });
-            if (!response.ok) {
-                throw new Error('Failed to add customer');
-            }
-            const newCustomer = await response.json();
-            onAdd(newCustomer);
-            handleClose();
-        } catch (e) {
-            console.error(e);
-        }
+    const handleChange = (event) => {
+        setCustomer({ ...customer, [event.target.name]: event.target.value });
     };
+
+    const handleSave = () => {
+        console.log(customer);
+        updateCustomer(url, customer); 
+        setOpen(false);
+    };
+
 
     return (
         <>
-        <Box sx={{ padding: '20px' }}> {/* Boxed to add padding */}
-            <Button variant="outlined" color="primary" onClick={handleOpen} >
-                Add Customer
+            <Button onClick={handleOpen} variant="outlined" color="primary" >
+                Edit
             </Button> {/*Renders button for modular use */}
-        </Box> 
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add Customer</DialogTitle>
+                <DialogTitle>Edit Customer</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To add a new customer, please input the required details.
+                        Edit an existing customer&apos;s information
                     </DialogContentText>
                     <TextField
                         required
@@ -140,11 +109,11 @@ export const AddCustomer = ({ onAdd }) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="error">
                         Cancel
                     </Button>
-                    <Button onClick={handleAddCustomer} color="success">
-                        Add
+                    <Button onClick={handleSave} color="success">
+                        Update
                     </Button>
                 </DialogActions>
             </Dialog>
