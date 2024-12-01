@@ -30,6 +30,9 @@ const router = createHashRouter([
         element: <SessionCalendar />
       }
     ]
+  },
+  {
+    basename: import.meta.env.BASE_URL
   }
 ]);
 
