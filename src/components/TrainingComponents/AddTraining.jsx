@@ -1,5 +1,6 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Select, MenuItem, InputLabel } from "@mui/material";
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import dayjs from "dayjs";
 
 export const AddTraining = ({ onAdd }) => {
@@ -78,6 +79,11 @@ export const AddTraining = ({ onAdd }) => {
 
     return (
         <>
+                    <Box sx={{ padding: '20px' }}>
+                <Button variant="outlined" color="secondary" component={Link} to="/calendar">
+                    Calendar
+                </Button>
+            </Box>
             <Box sx={{ padding: '20px' }}> {/* The same as AddCustomer, padding for button */}
                 <Button variant="outlined" color="primary" onClick={handleOpen}>
                     Add Training
@@ -136,7 +142,7 @@ export const AddTraining = ({ onAdd }) => {
                                 {customer.firstname} {customer.lastname}
                             </MenuItem>
                         ))}
-                         {/*
+                        {/*
                          Sources for use, could implement the conditional expression here:
                          https://mui.com/material-ui/react-select/
                          https://stackoverflow.com/questions/48599660/ternary-operator-inside-map

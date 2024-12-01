@@ -6,6 +6,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { AddCustomer } from './AddCustomer';
 import { DeleteCustomer } from './DeleteCustomer';
 import { EditCustomer } from "./UpdateCustomer";
+import { ExportCSV  } from "./ExportCustomer";
 
 export default function CustomerList() {
     const [customers, setCustomers] = useState([]);
@@ -67,10 +68,8 @@ export default function CustomerList() {
                 },
                 body: JSON.stringify(updatedCustomer),
             });
-            if (response.ok) {
-                fetchCustomers();
-            } else {
-                console.error('Failed to update customer');
+            if (!response.ok) {
+                throw new Error('Failed to update customer');
             }
         } catch (e) {
             console.error('Failed to update customer. Check the log: ', e);
@@ -84,7 +83,7 @@ export default function CustomerList() {
     return (
         <div className="CustomerList">
             <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px' }}>
-                <AddCustomer onAdd={fetchCustomers} />
+                <AddCustomer onAdd={fetchCustomers} /> <ExportCSV />
             </div>
             <div className="ag-theme-material" style={{ width: "100%", height: 800 }}>
                 <AgGridReact
